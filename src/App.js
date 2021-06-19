@@ -7,6 +7,7 @@ function App() {
     <BrowserRouter>
       <Router></Router>
     </BrowserRouter>
+     
   );
 }
 
