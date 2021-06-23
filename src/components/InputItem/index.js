@@ -3,7 +3,7 @@ import { Input, Form, Button, Row, Col, message } from "antd";
 import styles from "./index.module.less";
 
 const InputItem = (props) => {
-  const { name, rules, ...rest } = props;
+  const { name, rules, label, ...rest } = props;
 
   // 点击后倒计时效果
   const [timing, setTiming] = useState(false); //是否在倒计时
@@ -38,7 +38,7 @@ const InputItem = (props) => {
 
   if (name === "captcha") {
     return (
-      <Form.Item name={name} rules={rules}>
+      <Form.Item name={name} rules={rules} label={label}>
         <Row gutter="8">
           <Col span={16}>
             <Input {...rest} />
@@ -63,8 +63,8 @@ const InputItem = (props) => {
 
   return (
     // Form.item可以有间距样式 包裹一下
-    <Form.Item name={name} rules={rules}>
-      <Input {...rest} />
+    <Form.Item name={name} rules={rules} label={label}>
+      <Input {...rest} autoComplete="off" />
     </Form.Item>
   );
 };
