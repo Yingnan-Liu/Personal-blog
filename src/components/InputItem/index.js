@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Input, Form, Button, Row, Col, message } from "antd";
+import { Input, Form, Button, Row, Col } from "antd";
 import styles from "./index.module.less";
 
 const InputItem = (props) => {
-  const { name, rules, label, ...rest } = props;
+  const { name, rules, label, onClick, ...rest } = props;
 
   // 点击后倒计时效果
   const [timing, setTiming] = useState(false); //是否在倒计时
   //倒计时秒数
   const [count, setCount] = useState(30);
 
-  const handleClickCaptcha = () => {
-    message.success("验证码为1234");
-    //开始计时标志
-    setTiming(true);
-  };
+  // 获取验证码按钮点击事件 在register组件中实现
 
   useEffect(() => {
     let interval = 0;
@@ -47,9 +43,9 @@ const InputItem = (props) => {
             <Button
               className={styles.getCaptcha}
               size="large"
-              onClick={handleClickCaptcha}
               //点击后禁用按钮
               disabled={timing}
+              onClick={onClick}
             >
               <span style={{ fontSize: "15px", color: "grey" }}>
                 {timing ? `${count}秒` : "获取验证码"}

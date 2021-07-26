@@ -1,0 +1,35 @@
+.filterCardList {
+  margin-bottom: -24px;
+}
+.filterCardList :global .ant-card-meta-content {
+  margin-top: 0;
+}
+.filterCardList .cardInfo {
+  margin-top: 16px;
+  margin-left: 40px;
+}
+.filterCardList .cardInfo::before,
+.filterCardList .cardInfo::after {
+  display: table;
+  content: " ";
+}
+.filterCardList .cardInfo::after {
+  clear: both;
+  height: 0;
+  font-size: 0;
+  visibility: hidden;
+}
+.filterCardList .cardInfo > div {
+  position: relative;
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+.filterCardList .cardInfo > div p {
+  margin: 0;
+  font-size: 24px;
+  line-height: 32px;
+}
+.filterCardList .cardInfo > div p:first-child {
+  margin-bottom: 4px;
+}

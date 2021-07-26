@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import InputItem from "../../components/InputItem";
-import { Form, Popover, Progress } from "antd";
+import { Link } from "react-router-dom";
+import { Form, Popover, Progress, Row, Select, Col } from "antd";
 import styles from "./index.module.less";
+import { getCaptcha } from "../../actions/register";
+import { useDispatch } from "redux-react-hook";
+import InputItem from "../../components/InputItem";
+import SubmitButton from "../../components/SubmitButton";
+
+const { Option } = Select;
 
 //密码强度定义
 const passwordStatusMap = {
@@ -16,6 +22,7 @@ const passwordProgressMap = {
 };
 
 const Register = () => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [popover, setPopover] = useState(false); //触发popover重绘
 
@@ -82,17 +89,37 @@ const Register = () => {
       )
     );
   };
+  const handleSelect = (value) => {
+    console.log(value);
+  };
+
+  const handleClickCaptcha = () => {
+    // validateFields触发表单验证 返回一个promise
+    form.validateFields(["username", "email", "password"]).then(() => {
+      console.log(form.getFieldsValue(["username", "email", "password"]));
+      dispatch(
+        //异步aciton 传入三个参数作为payload
+        getCaptcha(form.getFieldsValue(["username", "email", "password"]))
+      );
+    });
+  };
 
   return (
     <div className={styles.registerContainer}>
       <div className={styles.register}>
         <Form form={form} onFinish={handleFinish}>
           <InputItem
-            name="mail"
+            name="username"
+            placeholder="请输入用户名"
+            size="large"
+            rules={[{ required: true, message: "请输入用户名" }]}
+          />
+          <InputItem
+            name="email"
             placeholder="请输入邮箱"
             size="large"
             rules={[
-              { required: true, message: "请输入用户名" },
+              { required: true, message: "请输入邮箱" },
               { type: "email", message: "请填写正确邮格式" },
             ]}
           />
@@ -132,6 +159,46 @@ const Register = () => {
               { validator: checkConfirm },
             ]}
           />
+          <Row gutter={2}>
+            <Col span={6}>
+              <Select
+                defaultValue="+86"
+                onChange={handleSelect}
+                size="large"
+                style={{ width: "100%" }}
+              >
+                <Option value="86">+86</Option>
+                <Option value="87">+87</Option>
+              </Select>
+            </Col>
+            <Col span={18}>
+              <InputItem
+                name="mobile"
+                placeholder="手机号"
+                type="password"
+                size="large"
+                rules={[
+                  { required: true, message: "请输入手机号" },
+                  { pattern: /^\d{11}$/, message: "手机号格式错误" },
+                ]}
+              />
+            </Col>
+          </Row>
+          <InputItem
+            name="captcha"
+            placeholder="验证码"
+            size="large"
+            rules={[{ required: true, message: "请输入验证码" }]}
+            onClick={handleClickCaptcha}
+          />
+          <Row justify="space-between" align="middle">
+            <Col span={8}>
+              <SubmitButton>注册</SubmitButton>
+            </Col>
+            <Col>
+              <Link to="/login">使用已有账户登录</Link>
+            </Col>
+          </Row>
         </Form>
       </div>
     </div>
