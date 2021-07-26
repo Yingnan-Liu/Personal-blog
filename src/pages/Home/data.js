@@ -116,7 +116,7 @@ const currentUser = {
   tags: [
     {
       key: "0",
-      label: "很有想法的",
+      label: "有想法的",
     },
     {
       key: "1",
@@ -124,7 +124,7 @@ const currentUser = {
     },
     {
       key: "2",
-      label: "辣~",
+      label: "爱吃辣",
     },
     {
       key: "3",
@@ -134,10 +134,10 @@ const currentUser = {
       key: "4",
       label: "川妹子",
     },
-    {
-      key: "5",
-      label: "海纳百川",
-    },
+    // {
+    //   key: "5",
+    //   label: "海纳百川",
+    // },
   ],
   notice: [
     {

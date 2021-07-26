@@ -10,7 +10,7 @@ export function getCaptcha(payload = {}) {
       code,
       message: msg,
       data: { captcha },
-    } = await api.getCaptch(payload);
+    } = await api.getCaptcha(payload);
     if (code === 20020) {
       message.success(`${msg}，验证码为${captcha}`);
     } else {
